@@ -1,4 +1,7 @@
 require 'data_mapper'
+require 'sinatra'
+require 'database_cleaner'	
+# require_relative './views/index'
 
 env = ENV["RACK_ENV"] || "development"
 # we're telling datamapper to use a postgres database on localhost. 
@@ -12,3 +15,15 @@ DataMapper.finalize #after declaring models, finalise them
 
 DataMapper.auto_upgrade! # tell datamapper to create database tables. 
 
+
+get '/' do 
+	@links = Link.all
+	erb :index
+end 
+
+post '/links' do 
+	url = params["url"]
+	title = params["title"]
+	Link.create(:url => url, :title => title)
+	redirect to('/')
+end 
