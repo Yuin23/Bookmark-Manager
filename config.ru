@@ -1,7 +1,4 @@
-require './bookmark_manager'
+require './app/server'
 
 run Sinatra::Application
-
-
-
 
