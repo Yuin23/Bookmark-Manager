@@ -10,7 +10,7 @@ env = ENV["RACK_ENV"] || "development"
 DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}")
 
 require './lib/link' #this needs to be done after datamapper is intialised 
-
+require './lib/tag'
 DataMapper.finalize #after declaring models, finalise them
 
 DataMapper.auto_upgrade! # tell datamapper to create database tables. 
@@ -24,6 +24,11 @@ end
 post '/links' do 
 	url = params["url"]
 	title = params["title"]
-	Link.create(:url => url, :title => title)
+	tags = params["tags"].split(" ").map do |tag|
+		Tag.first_or_create(:text => tag)
+	end 
+	Link.create(:url => url, :title => title, :tags => tags)
+
 	redirect to('/')
 end 
+
