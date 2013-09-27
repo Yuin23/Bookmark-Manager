@@ -1,24 +1,16 @@
-<html>
-	<head>
-		<h1> welcome to bookmark manager</h1>
-	</head>
-	<body>
-		<div id="new-link">
-		  <form action="/links" method="post">
-		    Url: <input type="text" name="url">
-		    Title: <input type="text" name="title">
-		    Tags: <input type="text" name="tags">
-		    <input type="submit" value="Add link">
-		  </form>
-		</div>
+<div id="new-link">
+  <form action="/links" method="post">
+    Url: <input type="text" name="url">
+    Title: <input type="text" name="title">
+    Tags: <input type="text" name="tags">
+    <input type="submit" value="Add link">
+  </form>
+</div>
 
 
-	
-		<ul>
-			<% @links.each do |link| %>
-				<li><a href="<%= link.url %>"><%= link.title %></a></li>
-			<% end %>
-		</ul>
-	</body>
-</html>
 
+<ul>
+	<% @links.each do |link| %>
+		<li><a href="<%= link.url %>"><%= link.title %></a></li>
+	<% end %>
+</ul>

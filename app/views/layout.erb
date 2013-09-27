@@ -1,0 +1,13 @@
+<!--sets up the layout/structure of html page -->
+<html>
+	<head>
+		<h1> welcome to bookmark manager</h1>
+	</head>
+	<body>
+		<% if current_user %>
+			Welcome, <%= current_user.email %>
+		<% end %>
+		<!-- yiled will take everything, ie from index.erb into the body-->
+		<%= yield %>   		
+	</body>
+</html>
