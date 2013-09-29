@@ -64,7 +64,7 @@ post '/users' do
 		redirect to('/')						
 		
 	else 
-		flash[:notice] = "Sorry, your password doesn't match"
+		flash.now[:errors] = @user.errors.full_messages
 		erb :"users/new"	# show the same form again, if the model is not valid. 
 	end 
 end 
