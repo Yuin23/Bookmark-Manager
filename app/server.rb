@@ -2,10 +2,13 @@ require 'data_mapper'
 require 'sinatra'
 require 'database_cleaner'
 require 'rack-flash'
+require 'sinatra/partial' 
 use Rack::Flash
 
 enable :sessions
 set :session_secret, 'super super secret'
+#register Sinatra::Partial
+set :partial_template_engine, :erb
 
 
 env = ENV["RACK_ENV"] || "development"
@@ -87,6 +90,11 @@ post '/sessions' do
 	end
 end
 
+delete '/sessions' do
+	flash[:notice] = "Good bye!"
+	session[:user_id] = nil
+	redirect to('/')
+end
 
 helpers do 
 	def current_user
