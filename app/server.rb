@@ -34,6 +34,7 @@ get '/tags/:text' do
 	erb :index
 end 
 
+
 get '/users/new' do 		
 	@user = User.new		###############################################	
 	erb :"users/new"		# note the view is in views/users/new.erb     #
@@ -41,6 +42,10 @@ end							# we need the quotes because otherwise        #
 							# ruby would divide the symbol :users by the  #
 							# variable new (which makes no sense)         #
 							###############################################
+get '/sessions/new' do
+  erb :"sessions/new"
+end
+
 
 post '/links' do 
 	url = params["url"]
@@ -53,8 +58,8 @@ post '/links' do
 	redirect to('/')
 end 
 
-post '/users' do
 
+post '/users' do
 	@user= User.new(:email => params[:email],		# initialize the object without saving 								
 				:password => params[:password],									
 				:password_confirmation => params[:password_confirmation])		
@@ -69,6 +74,18 @@ post '/users' do
 	end 
 end 
 
+
+post '/sessions' do
+	email, password = params[:email], params[:password]
+	user = User.authenticate(email, password)
+	if user
+		session[:user_id] = user.id
+		redirect to('/')
+	else
+		flash[:errors] = ["The email or password are incorrect"]
+		erb :"sessions/new"
+	end
+end
 
 
 helpers do 
