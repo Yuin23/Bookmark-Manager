@@ -11,7 +11,6 @@ require 'database_cleaner'
 
 require 'capybara/rspec'
 
-require 'sinatra'
 # set environment variables 
 ENV["RACK_ENV"] = 'test'    # because we need to know what database to work with. 
               # this needs to be after ENV["RACK_ENV"] = 'test' 
